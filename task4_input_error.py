@@ -8,12 +8,12 @@ def input_error(func: Callable) -> Callable:
             return func(*args, **kwargs)
         except ValueError as e:
             return str(e)
-        except KeyError | IndexError | Exception:
+        except KeyError | IndexError:
             return 'Invalid command.'
     
     return wrapper
 
-def parse_input(input: str) -> list[str]:
+def parse_input(input: str) -> tuple[str, ...]:
     """Parse the input from the user."""
 
     command, *args = input.strip().split(" ")
@@ -68,11 +68,16 @@ def show_all_contacts(contacts: dict) -> str:
 
 def main() -> None:
     """Console bot for managing contacts."""
-    
+
     contacts = {}
 
     while True:
         user_input = input("Enter a command: ")
+        
+        if not user_input.strip():
+            print("Please enter a command.")
+            continue
+
         command, *args = parse_input(user_input)
 
         match command:
