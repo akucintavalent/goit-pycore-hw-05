@@ -3,8 +3,8 @@ from typing import Generator, Callable
 
 def generator_numbers(text: str) -> Generator[float, None, None]:
     """Generates numbers from the given text."""
-    
-    pattern = r'\s(\d+\.?\d*)\s'
+
+    pattern = r'\b(\d+\.?\d*)\b'
     matches = re.finditer(pattern, text)
     for match in matches:
         yield float(match.group(1))
