@@ -1,8 +1,10 @@
 from typing import Callable
+from functools import wraps
 
 def input_error(func: Callable) -> Callable:
     """Decorator to handle input errors for contact management functions."""
     
+    @wraps(func)
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
@@ -73,7 +75,7 @@ def main() -> None:
 
     while True:
         user_input = input("Enter a command: ")
-        
+
         if not user_input.strip():
             print("Please enter a command.")
             continue
